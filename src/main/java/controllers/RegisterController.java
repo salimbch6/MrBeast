@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import models.User;
 import services.UserServices;
+import utils.MyDataBase;
 
 import java.io.File;
 import java.net.URL;
@@ -40,7 +41,7 @@ public class RegisterController implements Initializable {
     private TextField usernameTextField;
 
     private UserServices userService;
-    private User selectedUser; // Store the selected user data
+    private MyDataBase myDataBase; // Database connection
 
     private Stage currentStage;
 
@@ -57,44 +58,43 @@ public class RegisterController implements Initializable {
         // Instantiate UserService
         userService = new UserServices();
 
-        // Initialize selectedUser to null
-        selectedUser = null;
-    }
-
-    // Method to set the selected user's data
-    public void initData(User user) {
-        selectedUser = user;
-        // Set the fields with the selected user's data
-        firstnameTextField.setText(selectedUser.getFirstname());
-        lastnameTextField.setText(selectedUser.getLastname());
-        usernameTextField.setText(selectedUser.getUsername());
-    }
-
-    public void setStage(Stage stage) {
-        this.currentStage = stage;
+        // Get instance of database connection
+        myDataBase = MyDataBase.getInstance();
     }
 
     public void registerButtonOnAction(ActionEvent event) {
+        String firstname = firstnameTextField.getText();
+        String lastname = lastnameTextField.getText();
+        String username = usernameTextField.getText();
         String setPassword = setPasswordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // Check if password fields are empty
-        if (setPassword.isEmpty() || confirmPassword.isEmpty()) {
+        // Check if any fields are empty
+        if (firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || setPassword.isEmpty() || confirmPassword.isEmpty()) {
             registrationMessageLabel.setText("Please fill in all fields");
             return; // Exit the method
         }
 
         // Check if passwords match
-        if (setPassword.equals(confirmPassword)) {
-            // Update the user's data
-            updateUser();
-            confirmPasswordLabel.setText("User updated successfully");
+        if (!setPassword.equals(confirmPassword)) {
+            confirmPasswordLabel.setText("Passwords do not match");
+            registrationMessageLabel.setText(""); // Clear any previous success message
+            return; // Exit the method
+        }
+
+        try {
+            // Register the user
+            userService.registerUser(myDataBase.getconn(), firstname, lastname, username, setPassword);
+
+            // Show success message
+            registrationMessageLabel.setText("User registered successfully");
 
             // Close the register window
             closeRegisterWindow();
-        } else {
-            confirmPasswordLabel.setText("Passwords do not match");
-            registrationMessageLabel.setText(""); // Clear any previous success message
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the SQLException appropriately
+            registrationMessageLabel.setText("Error: Unable to register user. Please try again.");
         }
     }
 
@@ -105,29 +105,5 @@ public class RegisterController implements Initializable {
 
     public void closeButtonOnAction(ActionEvent event) {
         currentStage.close(); // Close the register window
-    }
-
-    public void updateUser() {
-        if (selectedUser != null) {
-            String firstname = firstnameTextField.getText();
-            String lastname = lastnameTextField.getText();
-            String username = usernameTextField.getText();
-            String password = setPasswordField.getText();
-
-            try {
-                // Update the user's data
-                selectedUser.setFirstname(firstname);
-                selectedUser.setLastname(lastname);
-                selectedUser.setUsername(username);
-                selectedUser.setPassword(password);
-
-                // Update the user in the database
-                userService.updateUser(selectedUser);
-                registrationMessageLabel.setText("User updated successfully");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle the exception as needed
-            }
-        }
     }
 }

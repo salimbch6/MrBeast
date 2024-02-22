@@ -24,6 +24,6 @@
          </image>
       </ImageView>
        <Button fx:id="deleteButton" layoutX="195.0" layoutY="60.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="103.0" style="-fx-background-color: #E96151;" text="Delete" textFill="WHITE" />
-      <Button fx:id="updateButton" layoutX="389.0" layoutY="60.0" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #E96151;" text="Update" textFill="WHITE" />
+      <Button fx:id="updateButton" layoutX="389.0" layoutY="60.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #E96151;" text="Update" textFill="WHITE" />
    </children>
 </AnchorPane>

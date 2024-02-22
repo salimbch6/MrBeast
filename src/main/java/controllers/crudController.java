@@ -104,6 +104,7 @@ public class crudController implements Initializable {
         }
     }
 
+
     @FXML
     private void deleteButtonClicked(ActionEvent event) {
         // Get the selected user
@@ -128,31 +129,6 @@ public class crudController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Please select a user to delete.");
             alert.showAndWait();
-        }
-    }
-    @FXML
-    private void updateButtonClicked(ActionEvent event) {
-        // Get the selected user
-        User selectedUser = userT.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            try {
-                // Load the register.fxml file and pass the selected user's data
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
-                Parent root = loader.load();
-
-                // Get the controller associated with the register.fxml file
-                RegisterController registerController = loader.getController();
-
-                // Pass the selected user's data to the register controller
-                registerController.initData(selectedUser);
-
-                // Show the register stage
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

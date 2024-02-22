@@ -56,10 +56,9 @@ public class UserServices {
         }
     }
 
-    public void updateUser(User user) throws SQLException {
+    public void updateUser(Connection connection, User user) throws SQLException {
         String updateQuery = "UPDATE user_account SET firstname=?, lastname=?, username=?, password=? WHERE account_id=?";
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", "username", "password");
-             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
             preparedStatement.setString(1, user.getFirstname());
             preparedStatement.setString(2, user.getLastname());
             preparedStatement.setString(3, user.getUsername());
@@ -70,4 +69,6 @@ public class UserServices {
             throw e;
         }
     }
+
+
 }

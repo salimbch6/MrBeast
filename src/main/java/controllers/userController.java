@@ -74,7 +74,7 @@ public class userController implements Initializable {
                 boolean isValidLogin = userServices.validateLogin(connectDB, usernameTextField.getText(), enterPasswordField.getText());
                 if (isValidLogin) {
                     loginMessageLabel.setText("Congratulations!");
-                    openCrudWindow();
+                    openCrudWindow(); // Call the method to open CRUD window
                 } else {
                     loginMessageLabel.setText("Invalid login. Please try again");
                 }
@@ -85,6 +85,7 @@ public class userController implements Initializable {
             loginMessageLabel.setText("Please enter Username and Password");
         }
     }
+
 
     public void createAccountForm() {
         try {
