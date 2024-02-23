@@ -43,7 +43,7 @@
             <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="85.0" layoutY="182.0" prefHeight="18.0" prefWidth="338.0" textFill="#f20404" />
             <PasswordField fx:id="enterPasswordField" layoutX="149.0" layoutY="284.0" prefHeight="26.0" prefWidth="221.0" promptText="Password" />
             <Hyperlink fx:id="registerLink" alignment="CENTER" layoutX="112.0" layoutY="460.0" onAction="#openRegisterPage" prefHeight="24.0" prefWidth="265.0" />
-            <ImageView fx:id="lockImageView" fitHeight="209.0" fitWidth="220.0" layoutX="136.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lockImageView" fitHeight="245.0" fitWidth="251.0" layoutX="122.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../target/classes/login icon.png" />
                </image>

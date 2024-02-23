@@ -69,7 +69,7 @@ public class crudController implements Initializable {
 
     }
 
-    private void populateTable() {
+    void populateTable() {
         // Clear existing items in the TableView
         userT.getItems().clear();
 
@@ -132,6 +132,45 @@ public class crudController implements Initializable {
         }
     }
 
+
+    @FXML
+    public void updateButtonOnAction(ActionEvent actionEvent) {
+        // Get the selected user
+        User selectedUser = userT.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                // Close the current window
+                Stage stage = (Stage) updateButton.getScene().getWindow();
+                stage.close();
+
+                // Load the update.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/update.fxml"));
+                Parent root = loader.load();
+
+                // Get the controller associated with the update.fxml
+                updateController updateController = loader.getController();
+                // Pass the selected user's data to the updateController
+                updateController.initData(selectedUser);
+
+                // Create a new stage for the update.fxml window
+                Stage updateStage = new Stage();
+                updateStage.setScene(new Scene(root));
+                updateStage.setTitle("Update User");
+
+                // Show the update.fxml window
+                updateStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // No user selected, display an alert
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No User Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a user to update.");
+            alert.showAndWait();
+        }
+    }
 
 
 }
