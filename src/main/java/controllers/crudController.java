@@ -1,15 +1,13 @@
 package controllers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +15,7 @@ import javafx.stage.Stage;
 import models.User;
 import services.UserServices;
 import utils.MyDataBase;
+import utils.EncryptionUtils; // Import the EncryptionUtils class
 
 import java.io.File;
 import java.io.IOException;
@@ -45,8 +44,17 @@ public class crudController implements Initializable {
     private Button deleteButton;
     @FXML
     private Button updateButton;
+    @FXML
+    private Hyperlink signoutLink;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private TextField searchTextField;
+
 
     private UserServices userServices;
+
+    private String username; // Store the username
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,19 +62,23 @@ public class crudController implements Initializable {
         File userFile = new File("target/classes/user icon.png");
         Image userImage = new Image(userFile.toURI().toString());
         userIconView.setImage(userImage);
+        signoutLink.setText("Sign out");
 
         // Instantiate UserServices
         userServices = new UserServices();
-
-
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("account_id"));
         firstnameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lastnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-        populateTable();
 
+        // Update password column to display encrypted passwords
+        passwordColumn.setCellValueFactory(data -> {
+            String encryptedPassword = EncryptionUtils.encrypt(data.getValue().getPassword());
+            return new SimpleStringProperty(encryptedPassword);
+        });
+
+        populateTable();
     }
 
     void populateTable() {
@@ -104,7 +116,6 @@ public class crudController implements Initializable {
         }
     }
 
-
     @FXML
     private void deleteButtonClicked(ActionEvent event) {
         // Get the selected user
@@ -132,7 +143,6 @@ public class crudController implements Initializable {
         }
     }
 
-
     @FXML
     public void updateButtonOnAction(ActionEvent actionEvent) {
         // Get the selected user
@@ -152,13 +162,19 @@ public class crudController implements Initializable {
                 // Pass the selected user's data to the updateController
                 updateController.initData(selectedUser);
 
+                // Pass the username to the crud.fxml
+                FXMLLoader parentLoader = new FXMLLoader(getClass().getResource("/crud.fxml"));
+                Parent parentRoot = parentLoader.load();
+                crudController crudController = parentLoader.getController();
+                crudController.setUsernameLabel(username);
+
                 // Create a new stage for the update.fxml window
                 Stage updateStage = new Stage();
                 updateStage.setScene(new Scene(root));
                 updateStage.setTitle("Update User");
 
                 // Show the update.fxml window
-                updateStage.show();
+                updateStage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -172,5 +188,79 @@ public class crudController implements Initializable {
         }
     }
 
+    public void singoutOnAction(ActionEvent actionEvent) {
+        try {
+            // Close the current window
+            Stage stage = (Stage) signoutLink.getScene().getWindow();
+            stage.close();
+
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the login.fxml window
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("Login");
+
+            // Show the login.fxml window
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to set the username label
+    public void setUsernameLabel(String username) {
+        this.username = username;
+        usernameLabel.setText(username);
+    }
+
+    @FXML
+    public void searchOnAction(ActionEvent actionEvent) {
+        String query = searchTextField.getText().trim();
+        if (!query.isEmpty()) {
+            // Perform search based on the query
+            searchUsers(query);
+        } else {
+            // If search query is empty, reset the TableView to show all users
+            populateTable();
+        }
+    }
+
+    private void searchUsers(String query) {
+        // Clear existing items in the TableView
+        userT.getItems().clear();
+
+        // Get database connection
+        MyDataBase connectNow = new MyDataBase();
+        Connection connectDB = connectNow.getconn();
+
+        try {
+            // Retrieve user data from the database based on search query
+            ResultSet resultSet = userServices.searchUsers(connectDB, query);
+
+            // Add matching users to the TableView
+            while (resultSet.next()) {
+                int account_id = resultSet.getInt("account_id");
+                String firstname = resultSet.getString("firstname");
+                String lastname = resultSet.getString("lastname");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+
+                User user = new User(account_id, firstname, lastname, username, password);
+                userT.getItems().add(user);
+            }
+
+            // Debug output
+            if (!userT.getItems().isEmpty()) {
+                System.out.println("Users matching the search query successfully retrieved and added to TableView.");
+            } else {
+                System.out.println("No users found matching the search query.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

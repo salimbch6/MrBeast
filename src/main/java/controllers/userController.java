@@ -15,6 +15,7 @@ import utils.MyDataBase;
 import models.User;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -74,7 +75,7 @@ public class userController implements Initializable {
                 boolean isValidLogin = userServices.validateLogin(connectDB, usernameTextField.getText(), enterPasswordField.getText());
                 if (isValidLogin) {
                     loginMessageLabel.setText("Congratulations!");
-                    openCrudWindow(); // Call the method to open CRUD window
+                    openCrudWindow(usernameTextField.getText()); // Call the method to open CRUD window
                 } else {
                     loginMessageLabel.setText("Invalid login. Please try again");
                 }
@@ -102,22 +103,31 @@ public class userController implements Initializable {
         }
     }
 
-    private void openCrudWindow() {
+    private void openCrudWindow(String username) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/crud.fxml"));
             Parent root = loader.load();
+
+            // Get the controller associated with the crud.fxml
+            crudController crudController = loader.getController();
+
+            // Call the setUsernameLabel method to set the username label
+            crudController.setUsernameLabel(username);
+
             Scene scene = new Scene(root);
             Stage crudStage = new Stage();
             crudStage.setTitle("User Management");
             crudStage.setScene(scene);
             crudStage.show();
+
             // Close the current login window
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void openRegisterPage(ActionEvent event) {

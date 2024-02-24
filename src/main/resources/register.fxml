@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="503.0" prefWidth="623.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
+<AnchorPane prefHeight="529.0" prefWidth="623.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
    <children>
       <AnchorPane prefHeight="78.0" prefWidth="623.0" style="-fx-background-color: #E96151;">
          <children>
@@ -39,9 +39,9 @@
       <TextField fx:id="usernameTextField" layoutX="111.0" layoutY="260.0" prefHeight="26.0" prefWidth="379.0" promptText="Username" />
       <PasswordField fx:id="setPasswordField" layoutX="112.0" layoutY="324.0" prefHeight="26.0" prefWidth="379.0" promptText="Password" />
       <PasswordField fx:id="confirmPasswordField" layoutX="109.0" layoutY="387.0" prefHeight="26.0" prefWidth="379.0" promptText="Confirm Password" />
-      <Button fx:id="registerButton" layoutX="132.0" layoutY="429.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #E96151;" text="Register" textFill="WHITE" />
-      <Button fx:id="closeButton" layoutX="317.0" layoutY="429.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
+      <Button fx:id="registerButton" layoutX="132.0" layoutY="455.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #E96151;" text="Register" textFill="WHITE" />
+      <Button fx:id="closeButton" layoutX="319.0" layoutY="455.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
       <Label fx:id="registrationMessageLabel" alignment="CENTER" layoutX="124.0" layoutY="85.0" prefHeight="18.0" prefWidth="386.0" textFill="RED" />
-      <Label fx:id="confirmPasswordLabel" layoutX="251.0" layoutY="359.0" prefHeight="18.0" prefWidth="204.0" textFill="RED" />
+      <Label fx:id="confirmPasswordLabel" alignment="CENTER" layoutX="74.0" layoutY="423.0" prefHeight="18.0" prefWidth="482.0" textFill="RED" />
    </children>
 </AnchorPane>

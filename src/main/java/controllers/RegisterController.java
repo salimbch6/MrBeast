@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import models.User;
 import services.UserServices;
 import utils.MyDataBase;
 
@@ -82,6 +81,20 @@ public class RegisterController implements Initializable {
             return; // Exit the method
         }
 
+        // Check password length
+        if (setPassword.length() < 8) {
+            confirmPasswordLabel.setText("Password must be at least 8 characters long");
+            registrationMessageLabel.setText(""); // Clear any previous success message
+            return; // Exit the method
+        }
+
+        // Check password complexity
+        if (!isPasswordComplex(setPassword)) {
+            confirmPasswordLabel.setText("Password must contain at least one uppercase letter, one lowercase letter, and one digit");
+            registrationMessageLabel.setText(""); // Clear any previous success message
+            return; // Exit the method
+        }
+
         try {
             // Register the user
             userService.registerUser(myDataBase.getconn(), firstname, lastname, username, setPassword);
@@ -98,12 +111,23 @@ public class RegisterController implements Initializable {
         }
     }
 
+    private boolean isPasswordComplex(String password) {
+        // Password must contain at least one uppercase letter, one lowercase letter, and one digit
+        return password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*");
+    }
+
     private void closeRegisterWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 
+    public void setStage(Stage stage) {
+        this.currentStage = stage;
+    }
+
     public void closeButtonOnAction(ActionEvent event) {
-        currentStage.close(); // Close the register window
+        // Close the register window
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }

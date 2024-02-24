@@ -69,6 +69,12 @@ public class UserServices {
             throw e;
         }
     }
-
+    public ResultSet searchUsers(Connection connection, String query) throws SQLException {
+        String sql = "SELECT * FROM user_account WHERE firstname LIKE ? OR lastname LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + query + "%");
+        statement.setString(2, "%" + query + "%");
+        return statement.executeQuery();
+    }
 
 }
