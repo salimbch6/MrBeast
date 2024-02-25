@@ -1,38 +1,43 @@
 package services;
 
 import models.User;
+import utils.MyDataBase;
 
 import java.sql.*;
 
 public class UserServices {
-    public void registerUser(Connection connection, String firstname, String lastname, String username, String password) throws SQLException {
-        String insertFields = "INSERT INTO user_account(firstname, lastname, username, password) VALUES ('";
-        String insertValues = firstname + "','" + lastname + "','" + username + "','" + password + "')";
-        String insertToRegister = insertFields + insertValues;
-
+    Connection cnx = MyDataBase.getInstance().getconn();
+    public void registerUser(Connection connection, String firstname, String lastname, String username, String password,String img) throws SQLException {
+        String insertFields = "INSERT INTO user_account(id_role, firstname, lastname, username, password,profilePic) VALUES (?, ?, ?, ?, ?,?)";
         try {
-            PreparedStatement statement = connection.prepareStatement(insertToRegister);
+            PreparedStatement statement = connection.prepareStatement(insertFields);
+            // Assuming "client" role has id 1 (You may need to adjust this based on your role table)
+            statement.setInt(1, 1); // Set role id to "client"
+            statement.setString(2, firstname);
+            statement.setString(3, lastname);
+            statement.setString(4, username);
+            statement.setString(5, password);
+            statement.setString(6, img);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
         }
     }
-
-    public boolean validateLogin(Connection connection, String username, String password) throws SQLException {
-        String verifyLogin = "SELECT count(1) FROM user_account WHERE username = ? AND password = ?";
+        public int validateLogin(Connection connection, String username, String password) throws SQLException {
+        String verifyLogin = "SELECT * FROM user_account WHERE username = ? AND password = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(verifyLogin);
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet queryResult = statement.executeQuery();
             if (queryResult.next()) {
-                int count = queryResult.getInt(1);
-                return count == 1;
+                //int count = queryResult.getInt(1);
+                return queryResult.getInt("account_id");
             }
         } catch (SQLException e) {
             throw e;
         }
-        return false;
+        return -1;
     }
 
     public ResultSet getAllUsers(Connection connection) throws SQLException {
@@ -43,6 +48,37 @@ public class UserServices {
         } catch (SQLException e) {
             throw e;
         }
+    }
+    public User getUserById_Account( int id_account)  {
+        User b = new User();
+
+
+        try {
+
+            String req = "SELECT * FROM user_account WHERE account_id= "+id_account;
+            //Statement st = cnx.createStatement();
+            Statement st =cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery(req);
+            rs.beforeFirst();
+            rs.next();
+            b.setAccount_id(rs.getInt(1));
+            b.setId_role(rs.getInt(2));
+            b.setFirstname(rs.getString(3));
+            b.setLastname(rs.getString(4));
+            b.setUsername(rs.getString(5));
+            b.setPassword(rs.getString(6));
+            b.setProfilePic(rs.getString(7));
+
+
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+
+
+        return b;
     }
 
     public void deleteUser(Connection connection, int id) throws SQLException {
@@ -69,6 +105,7 @@ public class UserServices {
             throw e;
         }
     }
+
     public ResultSet searchUsers(Connection connection, String query) throws SQLException {
         String sql = "SELECT * FROM user_account WHERE firstname LIKE ? OR lastname LIKE ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -76,5 +113,6 @@ public class UserServices {
         statement.setString(2, "%" + query + "%");
         return statement.executeQuery();
     }
+
 
 }

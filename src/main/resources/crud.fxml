@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -23,11 +22,6 @@
             <TableColumn fx:id="passwordColumn" prefWidth="125.5999755859375" text="Password" />
         </columns>
       </TableView>
-      <ImageView fx:id="userIconView" fitHeight="26.0" fitWidth="27.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../target/classes/user icon.png" />
-         </image>
-      </ImageView>
        <Button fx:id="deleteButton" layoutX="166.0" layoutY="447.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #E96151;" text="Delete" textFill="WHITE" />
       <Button fx:id="updateButton" layoutX="421.0" layoutY="447.0" mnemonicParsing="false" onAction="#updateButtonOnAction" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #E96151;" text="Update" textFill="WHITE" />
       <Hyperlink fx:id="signoutLink" alignment="CENTER_RIGHT" layoutX="640.0" layoutY="19.0" onAction="#singoutOnAction" prefHeight="24.0" prefWidth="103.0">
@@ -35,12 +29,13 @@
             <Font size="14.0" />
          </font>
       </Hyperlink>
-      <Label fx:id="usernameLabel" layoutX="50.0" layoutY="19.0" prefHeight="20.0" prefWidth="92.0">
+      <Label fx:id="usernameLabel" layoutX="97.0" layoutY="22.0" prefHeight="20.0" prefWidth="92.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="searchTextField" layoutX="74.0" layoutY="68.0" onAction="#searchOnAction" prefHeight="26.0" prefWidth="172.0" promptText="Search" />
       <FontAwesomeIconView glyphName="SEARCH" layoutX="223.0" layoutY="86.0" size="15" wrappingWidth="17.0" />
+      <ImageView fx:id="imageView" fitHeight="59.0" fitWidth="74.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

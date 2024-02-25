@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import services.UserServices;
 import utils.MyDataBase;
 import models.User;
+import utils.Session;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,22 +73,46 @@ public class userController implements Initializable {
             try {
                 MyDataBase connectNow = new MyDataBase();
                 Connection connectDB = connectNow.getconn();
-                boolean isValidLogin = userServices.validateLogin(connectDB, usernameTextField.getText(), enterPasswordField.getText());
-                if (isValidLogin) {
-                    loginMessageLabel.setText("Congratulations!");
-                    openCrudWindow(usernameTextField.getText()); // Call the method to open CRUD window
+                int isValidLogin = userServices.validateLogin(connectDB, usernameTextField.getText(), enterPasswordField.getText());
+                if (isValidLogin != -1) {
+                    Session.setAccount_id(isValidLogin);
+                    System.out.println(Session.getAccount_id());
+                    User u = userServices.getUserById_Account(isValidLogin);
+                    System.out.println(u);
+                    if (u.getId_role()==1){
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/clientInterface.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        Stage clientStage = new Stage();
+                        clientStage.setTitle("Client Management");
+                        clientStage.setScene(scene);
+                        clientStage.show();
+                        Stage currentStage = (Stage) loginButton.getScene().getWindow();
+                        currentStage.close();
+                    }
+                    else {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/crud.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        Stage crudStage = new Stage();
+                        crudStage.setTitle("Admin Management");
+                        crudStage.setScene(scene);
+                        crudStage.show();
+                        Stage currentStage = (Stage) loginButton.getScene().getWindow();
+                        currentStage.close();
+                         }
                 } else {
                     loginMessageLabel.setText("Invalid login. Please try again");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else {
             loginMessageLabel.setText("Please enter Username and Password");
         }
     }
-
-
     public void createAccountForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/register.fxml"));
@@ -102,33 +127,6 @@ public class userController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    private void openCrudWindow(String username) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/crud.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller associated with the crud.fxml
-            crudController crudController = loader.getController();
-
-            // Call the setUsernameLabel method to set the username label
-            crudController.setUsernameLabel(username);
-
-            Scene scene = new Scene(root);
-            Stage crudStage = new Stage();
-            crudStage.setTitle("User Management");
-            crudStage.setScene(scene);
-            crudStage.show();
-
-            // Close the current login window
-            Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @FXML
     private void openRegisterPage(ActionEvent event) {
         createAccountForm();

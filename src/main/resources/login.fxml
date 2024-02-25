@@ -27,11 +27,11 @@
       <AnchorPane prefHeight="568.0" prefWidth="478.0" style="-fx-background-color: #ECECE7;" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="usernameTextField" layoutX="149.0" layoutY="222.0" prefHeight="26.0" prefWidth="220.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="86.0" layoutY="361.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="26.0" prefWidth="310.0" style="-fx-background-color: #E96151;" text="Login" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="86.0" layoutY="403.0" mnemonicParsing="false" onAction="#CancelButtonOnAction" prefHeight="26.0" prefWidth="310.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="loginButton" layoutX="84.0" layoutY="351.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="26.0" prefWidth="310.0" style="-fx-background-color: #E96151;" text="Login" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="84.0" layoutY="405.0" mnemonicParsing="false" onAction="#CancelButtonOnAction" prefHeight="26.0" prefWidth="310.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
             <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="85.0" layoutY="182.0" prefHeight="18.0" prefWidth="338.0" textFill="#f20404" />
             <PasswordField fx:id="enterPasswordField" layoutX="149.0" layoutY="284.0" prefHeight="26.0" prefWidth="221.0" promptText="Password" />
-            <Hyperlink fx:id="registerLink" alignment="CENTER" layoutX="112.0" layoutY="460.0" onAction="#openRegisterPage" prefHeight="24.0" prefWidth="265.0" />
+            <Hyperlink fx:id="registerLink" alignment="CENTER" layoutX="106.0" layoutY="460.0" onAction="#openRegisterPage" prefHeight="24.0" prefWidth="265.0" />
             <ImageView fx:id="lockImageView" fitHeight="245.0" fitWidth="251.0" layoutX="122.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../target/classes/login icon.png" />

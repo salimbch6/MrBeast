@@ -16,7 +16,10 @@ import models.User;
 import services.UserServices;
 import utils.MyDataBase;
 import utils.EncryptionUtils; // Import the EncryptionUtils class
+import utils.Session;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,22 +53,43 @@ public class crudController implements Initializable {
     private Label usernameLabel;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private ImageView imageView;
 
 
     private UserServices userServices;
 
     private String username; // Store the username
 
+    MyDataBase connectNow = new MyDataBase();
+    Connection connectDB = connectNow.getconn();
+    URL imageUrl;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         // Set up user icon
-        File userFile = new File("target/classes/user icon.png");
-        Image userImage = new Image(userFile.toURI().toString());
-        userIconView.setImage(userImage);
+
+        //File userFile = new File("target/classes/user icon.png");
+        //Image userImage = new Image(userFile.toURI().toString());
+        //userIconView.setImage(userImage);
         signoutLink.setText("Sign out");
 
         // Instantiate UserServices
         userServices = new UserServices();
+        User u = userServices.getUserById_Account(Session.getAccount_id()); //star AZIZ bech tekhedh user mel session
+        usernameLabel.setText(u.getUsername());
+        try {
+            imageUrl = new URL("http://localhost/images/"+u.getProfilePic());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Image images = new Image(imageUrl.toString());
+        imageView.setImage(images);
+
+
+
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("account_id"));
         firstnameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
@@ -101,7 +125,7 @@ public class crudController implements Initializable {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
 
-                User user = new User(account_id, firstname, lastname, username, password);
+                User user = new User(account_id,1, firstname, lastname, username, password,"");
                 userT.getItems().add(user);
             }
 
@@ -161,13 +185,6 @@ public class crudController implements Initializable {
                 updateController updateController = loader.getController();
                 // Pass the selected user's data to the updateController
                 updateController.initData(selectedUser);
-
-                // Pass the username to the crud.fxml
-                FXMLLoader parentLoader = new FXMLLoader(getClass().getResource("/crud.fxml"));
-                Parent parentRoot = parentLoader.load();
-                crudController crudController = parentLoader.getController();
-                crudController.setUsernameLabel(username);
-
                 // Create a new stage for the update.fxml window
                 Stage updateStage = new Stage();
                 updateStage.setScene(new Scene(root));
@@ -209,13 +226,6 @@ public class crudController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    // Method to set the username label
-    public void setUsernameLabel(String username) {
-        this.username = username;
-        usernameLabel.setText(username);
-    }
-
     @FXML
     public void searchOnAction(ActionEvent actionEvent) {
         String query = searchTextField.getText().trim();
@@ -248,7 +258,8 @@ public class crudController implements Initializable {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
 
-                User user = new User(account_id, firstname, lastname, username, password);
+
+                User user = new User(account_id,1, firstname, lastname, username, password,"");
                 userT.getItems().add(user);
             }
 
