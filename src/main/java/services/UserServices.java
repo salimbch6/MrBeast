@@ -93,13 +93,14 @@ public class UserServices {
     }
 
     public void updateUser(Connection connection, User user) throws SQLException {
-        String updateQuery = "UPDATE user_account SET firstname=?, lastname=?, username=?, password=? WHERE account_id=?";
+        String updateQuery = "UPDATE user_account SET firstname=?, lastname=?, username=?, password=?,profilePic=? WHERE account_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
             preparedStatement.setString(1, user.getFirstname());
             preparedStatement.setString(2, user.getLastname());
             preparedStatement.setString(3, user.getUsername());
             preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setInt(5, user.getAccount_id());
+            preparedStatement.setInt(6, user.getAccount_id());
+            preparedStatement.setString(5,user.getProfilePic());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw e;

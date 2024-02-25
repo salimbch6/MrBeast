@@ -13,29 +13,30 @@
 
 <AnchorPane prefHeight="515.0" prefWidth="758.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.crudController">
    <children>
-      <TableView fx:id="userT" layoutX="74.0" layoutY="104.0" prefHeight="326.0" prefWidth="626.0">
+      <TableView fx:id="userT" layoutX="38.0" layoutY="104.0" prefHeight="326.0" prefWidth="694.0">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="120.79995346069336" text="account_id" />
-          <TableColumn fx:id="firstnameColumn" prefWidth="139.2000274658203" text="Firstname" />
-            <TableColumn fx:id="lastnameColumn" prefWidth="128.800048828125" text="Lastname" />
-            <TableColumn fx:id="usernameColumn" prefWidth="113.5999755859375" text="Username" />
-            <TableColumn fx:id="passwordColumn" prefWidth="125.5999755859375" text="Password" />
+          <TableColumn fx:id="firstnameColumn" prefWidth="118.4000244140625" text="Firstname" />
+            <TableColumn fx:id="lastnameColumn" prefWidth="119.199951171875" text="Lastname" />
+            <TableColumn fx:id="usernameColumn" prefWidth="111.20001220703125" text="Username" />
+            <TableColumn fx:id="passwordColumn" prefWidth="108.79995727539062" text="Password" />
+            <TableColumn fx:id="imageColumn" prefWidth="129.60009765625" text="Image" />
         </columns>
       </TableView>
        <Button fx:id="deleteButton" layoutX="166.0" layoutY="447.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #E96151;" text="Delete" textFill="WHITE" />
       <Button fx:id="updateButton" layoutX="421.0" layoutY="447.0" mnemonicParsing="false" onAction="#updateButtonOnAction" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #E96151;" text="Update" textFill="WHITE" />
-      <Hyperlink fx:id="signoutLink" alignment="CENTER_RIGHT" layoutX="640.0" layoutY="19.0" onAction="#singoutOnAction" prefHeight="24.0" prefWidth="103.0">
+      <Hyperlink fx:id="signoutLink" alignment="CENTER_RIGHT" layoutX="648.0" layoutY="19.0" onAction="#singoutOnAction" prefHeight="24.0" prefWidth="103.0">
          <font>
             <Font size="14.0" />
          </font>
       </Hyperlink>
-      <Label fx:id="usernameLabel" layoutX="97.0" layoutY="22.0" prefHeight="20.0" prefWidth="92.0">
+      <Label fx:id="usernameLabel" layoutX="74.0" layoutY="22.0" prefHeight="20.0" prefWidth="92.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="searchTextField" layoutX="74.0" layoutY="68.0" onAction="#searchOnAction" prefHeight="26.0" prefWidth="172.0" promptText="Search" />
       <FontAwesomeIconView glyphName="SEARCH" layoutX="223.0" layoutY="86.0" size="15" wrappingWidth="17.0" />
-      <ImageView fx:id="imageView" fitHeight="59.0" fitWidth="74.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView" fitHeight="59.0" fitWidth="74.0" layoutX="7.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

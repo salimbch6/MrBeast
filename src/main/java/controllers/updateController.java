@@ -4,20 +4,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.User;
 import services.UserServices;
 import utils.MyDataBase;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,8 +45,16 @@ public class updateController implements Initializable {
     private TextField lastnameTextField;
     @FXML
     private TextField usernameTextField;
+    @FXML
+    private Button imageButton;
+    @FXML
+    private Label imageLabel;
+    @FXML
+    private ImageView profileImageView;
+
 
     private User selectedUser;
+    private File selectedFile;
     private UserServices userServices;
 
     @Override
@@ -55,14 +66,25 @@ public class updateController implements Initializable {
     }
 
     // Method to receive selected user's data from crudController
-    public void initData(User user) {
+    public void initData(User user) throws MalformedURLException {
         selectedUser = user;
+        URL imageUrl;
         // Populate the form fields with selected user's data
         firstnameTextField.setText(selectedUser.getFirstname());
         lastnameTextField.setText(selectedUser.getLastname());
         usernameTextField.setText(selectedUser.getUsername());
         setPasswordField.setText(selectedUser.getPassword());
         confirmPasswordField.setText(selectedUser.getPassword());
+        imageLabel.setText(user.getProfilePic());
+        try {
+            imageUrl = new URL("http://localhost/images/"+user.getProfilePic());
+            System.out.println(imageUrl);
+            Image images = new Image(imageUrl.toString());
+            profileImageView.setImage(images);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
         // Password fields can be left empty for security reasons
     }
 
@@ -74,10 +96,26 @@ public class updateController implements Initializable {
         selectedUser.setUsername(usernameTextField.getText());
         selectedUser.setPassword(setPasswordField.getText());
         selectedUser.setPassword(confirmPasswordField.getText());
+        selectedUser.setProfilePic(imageLabel.getText());
         // You might want to handle password updates here as well
 
         // Get database connection
         Connection connectDB = MyDataBase.getInstance().getconn();
+        String htdocsPath = "C:/xampp/htdocs/images/";
+        File destinationFile = new File(htdocsPath + imageLabel.getText().replaceAll("\\s", ""));
+        if(selectedFile!=null){
+            try (InputStream in = new FileInputStream(selectedFile);
+                 OutputStream out = new FileOutputStream(destinationFile)) {
+                byte[] buf = new byte[8192];
+                int length;
+                while ((length = in.read(buf)) > 0) {
+                    out.write(buf, 0, length);
+                }} catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 
         // Update user data in the database
         try {
@@ -129,4 +167,25 @@ public class updateController implements Initializable {
         }
     }
 
+    @FXML
+    private void imageOnMouseClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.JPG", "*.gif"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            //maj
+            imageLabel.setText(selectedFile.getName().replaceAll("\\s", ""));
+            try {
+                Image images = new Image("file:"+selectedFile.getPath().toString());
+                profileImageView.setImage(images);
+                System.out.println(selectedFile.getPath().toString());
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+
+        }
+    }
 }

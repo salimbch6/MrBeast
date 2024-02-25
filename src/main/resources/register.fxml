@@ -51,12 +51,20 @@
       <TextField fx:id="usernameTextField" layoutX="185.0" layoutY="258.0" prefHeight="26.0" prefWidth="379.0" promptText="Username" />
       <PasswordField fx:id="setPasswordField" layoutX="185.0" layoutY="322.0" prefHeight="26.0" prefWidth="379.0" promptText="Password" />
       <PasswordField fx:id="confirmPasswordField" layoutX="185.0" layoutY="386.0" prefHeight="26.0" prefWidth="379.0" promptText="Confirm Password" />
-      <Button fx:id="registerButton" layoutX="139.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #E96151;" text="Register" textFill="WHITE" />
-      <Button fx:id="closeButton" layoutX="480.0" layoutY="513.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
+      <Button fx:id="registerButton" layoutX="150.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #E96151;" text="Register" textFill="WHITE" />
+      <Button fx:id="closeButton" layoutX="421.0" layoutY="513.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #E96151;" text="Cancel" textFill="WHITE" />
       <Label fx:id="registrationMessageLabel" alignment="CENTER" layoutX="246.0" layoutY="84.0" prefHeight="18.0" prefWidth="386.0" textFill="RED" />
       <Label fx:id="confirmPasswordLabel" alignment="CENTER" layoutX="153.0" layoutY="84.0" prefHeight="18.0" prefWidth="482.0" textFill="RED" />
-      <Button fx:id="imageButton" layoutX="417.0" layoutY="438.0" mnemonicParsing="false" onAction="#imageOnMouseClicked" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #E96151;" text="Choose Profile Picture" textFill="WHITE" />
-      <ImageView fx:id="profileImageView" fitHeight="78.0" fitWidth="100.0" layoutX="593.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="imageLabel" layoutX="184.0" layoutY="442.0" prefHeight="18.0" prefWidth="186.0" />
+      <Button fx:id="imageButton" layoutX="188.0" layoutY="456.0" mnemonicParsing="false" onAction="#imageOnMouseClicked" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #E96151;" text="Choose Profile Picture" textFill="WHITE" />
+      <ImageView fx:id="profileImageView" fitHeight="66.0" fitWidth="85.0" layoutX="470.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="imageLabel" layoutX="366.0" layoutY="459.0" prefHeight="18.0" prefWidth="146.0" textFill="#810808">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="188.0" layoutY="425.0" text="Profile Picture">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

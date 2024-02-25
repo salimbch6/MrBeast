@@ -14,6 +14,7 @@ public class User {
         this.lastname = lastname;
         this.username = username;
         this.password = password;
+        this.profilePic=profilePic;
     }
 
     public User(String firstname, String lastname, String username, String password, String profilePic) {

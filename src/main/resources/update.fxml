@@ -9,37 +9,61 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="502.0" prefWidth="608.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.updateController">
+<AnchorPane prefHeight="587.0" prefWidth="645.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.updateController">
    <children>
-      <AnchorPane prefHeight="78.0" prefWidth="623.0" style="-fx-background-color: #E96151;">
+      <AnchorPane prefHeight="78.0" prefWidth="645.0" style="-fx-background-color: #E96151;">
          <children>
             <Label layoutX="253.0" layoutY="25.0" prefHeight="18.0" prefWidth="186.0" text="User Update ">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="updateImageView" fitHeight="61.0" fitWidth="81.0" layoutX="178.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="updateImageView" fitHeight="61.0" fitWidth="81.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@update icon.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="111.0" layoutY="104.0" prefHeight="18.0" prefWidth="100.0" text="Firstname">
+      <Label layoutX="143.0" layoutY="103.0" prefHeight="18.0" prefWidth="100.0" text="Firstname">
          <font>
-            <Font size="13.0" />
+            <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="111.0" layoutY="167.0" text="Lastname" />
-      <Label layoutX="112.0" layoutY="230.0" text="Username" />
-      <Label layoutX="112.0" layoutY="296.0" text="Password" />
-      <Label layoutX="109.0" layoutY="360.0" text="Confirm Password" />
-      <TextField fx:id="firstnameTextField" layoutX="111.0" layoutY="131.0" prefHeight="26.0" prefWidth="379.0" promptText="Firstname" />
-      <TextField fx:id="lastnameTextField" layoutX="111.0" layoutY="193.0" prefHeight="26.0" prefWidth="379.0" promptText="Lastname" />
-      <TextField fx:id="usernameTextField" layoutX="111.0" layoutY="260.0" prefHeight="26.0" prefWidth="379.0" promptText="Username" />
-      <PasswordField fx:id="setPasswordField" layoutX="112.0" layoutY="324.0" prefHeight="26.0" prefWidth="379.0" promptText="Password" />
-      <PasswordField fx:id="confirmPasswordField" layoutX="109.0" layoutY="387.0" prefHeight="26.0" prefWidth="379.0" promptText="Confirm Password" />
-      <Button fx:id="saveButton" layoutX="312.0" layoutY="439.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Save" textFill="WHITE" />
-      <Button fx:id="backButton" layoutX="140.0" layoutY="439.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Back" textFill="WHITE" />
+      <Label layoutX="143.0" layoutY="166.0" text="Lastname">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="143.0" layoutY="230.0" text="Username">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="143.0" layoutY="296.0" text="Password">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="140.0" layoutY="360.0" text="Confirm Password">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <TextField fx:id="firstnameTextField" layoutX="143.0" layoutY="131.0" prefHeight="26.0" prefWidth="379.0" promptText="Firstname" />
+      <TextField fx:id="lastnameTextField" layoutX="143.0" layoutY="195.0" prefHeight="26.0" prefWidth="379.0" promptText="Lastname" />
+      <TextField fx:id="usernameTextField" layoutX="143.0" layoutY="260.0" prefHeight="26.0" prefWidth="379.0" promptText="Username" />
+      <PasswordField fx:id="setPasswordField" layoutX="143.0" layoutY="326.0" prefHeight="26.0" prefWidth="379.0" promptText="Password" />
+      <PasswordField fx:id="confirmPasswordField" layoutX="143.0" layoutY="387.0" prefHeight="26.0" prefWidth="379.0" promptText="Confirm Password" />
+      <Button fx:id="saveButton" layoutX="366.0" layoutY="519.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Save" textFill="WHITE" />
+      <Button fx:id="backButton" layoutX="143.0" layoutY="519.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Back" textFill="WHITE" />
+      <Button fx:id="imageButton" layoutX="139.0" layoutY="457.0" mnemonicParsing="false" onAction="#imageOnMouseClicked" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #E96151;" text="Choose Profile Picture" textFill="WHITE" />
+      <ImageView fx:id="profileImageView" fitHeight="66.0" fitWidth="85.0" layoutX="458.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="imageLabel" layoutX="311.0" layoutY="460.0" prefHeight="18.0" prefWidth="146.0" textFill="#810808">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="139.0" layoutY="426.0" text="Profile Picture">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

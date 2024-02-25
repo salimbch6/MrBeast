@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import models.User;
 import services.UserServices;
@@ -28,6 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
 public class crudController implements Initializable {
     @FXML
     private TableView<User> userT;
@@ -39,6 +41,8 @@ public class crudController implements Initializable {
     private TableColumn<User, String> firstnameColumn;
     @FXML
     private TableColumn<User, String> lastnameColumn;
+    @FXML
+    private TableColumn<User, String> imageColumn;
     @FXML
     private TableColumn<User, String> usernameColumn;
     @FXML
@@ -59,7 +63,7 @@ public class crudController implements Initializable {
 
     private UserServices userServices;
 
-    private String username; // Store the username
+
 
     MyDataBase connectNow = new MyDataBase();
     Connection connectDB = connectNow.getconn();
@@ -95,6 +99,9 @@ public class crudController implements Initializable {
         firstnameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lastnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("profilePic"));
+
+
 
         // Update password column to display encrypted passwords
         passwordColumn.setCellValueFactory(data -> {
@@ -124,8 +131,10 @@ public class crudController implements Initializable {
                 String lastname = resultSet.getString("lastname");
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
+                String img = resultSet.getString("profilePic");
 
-                User user = new User(account_id,1, firstname, lastname, username, password,"");
+
+                User user = new User(account_id,1, firstname, lastname, username, password,img);
                 userT.getItems().add(user);
             }
 
@@ -184,6 +193,7 @@ public class crudController implements Initializable {
                 // Get the controller associated with the update.fxml
                 updateController updateController = loader.getController();
                 // Pass the selected user's data to the updateController
+                System.out.println(selectedUser);
                 updateController.initData(selectedUser);
                 // Create a new stage for the update.fxml window
                 Stage updateStage = new Stage();
@@ -257,9 +267,10 @@ public class crudController implements Initializable {
                 String lastname = resultSet.getString("lastname");
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
+                String img = resultSet.getString("profilePic");
 
 
-                User user = new User(account_id,1, firstname, lastname, username, password,"");
+                User user = new User(account_id,1, firstname, lastname, username, password,img);
                 userT.getItems().add(user);
             }
 
