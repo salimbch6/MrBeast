@@ -51,8 +51,8 @@
       <TextField fx:id="usernameTextField" layoutX="143.0" layoutY="260.0" prefHeight="26.0" prefWidth="379.0" promptText="Username" />
       <PasswordField fx:id="setPasswordField" layoutX="143.0" layoutY="326.0" prefHeight="26.0" prefWidth="379.0" promptText="Password" />
       <PasswordField fx:id="confirmPasswordField" layoutX="143.0" layoutY="387.0" prefHeight="26.0" prefWidth="379.0" promptText="Confirm Password" />
-      <Button fx:id="saveButton" layoutX="366.0" layoutY="519.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Save" textFill="WHITE" />
-      <Button fx:id="backButton" layoutX="143.0" layoutY="519.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Back" textFill="WHITE" />
+      <Button fx:id="saveButton" layoutX="172.0" layoutY="519.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Save" textFill="WHITE" />
+      <Button fx:id="backButton" layoutX="386.0" layoutY="519.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #E96151;" text="Back" textFill="WHITE" />
       <Button fx:id="imageButton" layoutX="139.0" layoutY="457.0" mnemonicParsing="false" onAction="#imageOnMouseClicked" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #E96151;" text="Choose Profile Picture" textFill="WHITE" />
       <ImageView fx:id="profileImageView" fitHeight="66.0" fitWidth="85.0" layoutX="458.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="imageLabel" layoutX="311.0" layoutY="460.0" prefHeight="18.0" prefWidth="146.0" textFill="#810808">

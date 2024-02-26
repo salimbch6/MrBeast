@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import models.User;
 import services.UserServices;
@@ -58,7 +59,7 @@ public class crudController implements Initializable {
     @FXML
     private TextField searchTextField;
     @FXML
-    private ImageView imageView;
+    private Circle imageView;
 
 
     private UserServices userServices;
@@ -90,7 +91,7 @@ public class crudController implements Initializable {
             throw new RuntimeException(e);
         }
         Image images = new Image(imageUrl.toString());
-        imageView.setImage(images);
+        imageView.setFill(new ImagePattern(images));
 
 
 

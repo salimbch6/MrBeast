@@ -7,8 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="515.0" prefWidth="758.0" style="-fx-background-color: #ECECE7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.crudController">
@@ -37,6 +37,6 @@
       </Label>
       <TextField fx:id="searchTextField" layoutX="74.0" layoutY="68.0" onAction="#searchOnAction" prefHeight="26.0" prefWidth="172.0" promptText="Search" />
       <FontAwesomeIconView glyphName="SEARCH" layoutX="223.0" layoutY="86.0" size="15" wrappingWidth="17.0" />
-      <ImageView fx:id="imageView" fitHeight="59.0" fitWidth="74.0" layoutX="7.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+      <Circle fx:id="imageView" fill="DODGERBLUE" layoutX="34.0" layoutY="36.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </AnchorPane>
